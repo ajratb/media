@@ -36,7 +36,9 @@ public class Test implements Runnable {
         try {
             grabber.start();
             while (true) {
+//                grabber.setVideoCodec(avcodec.AV_CODEC_i);
                 Frame frame = grabber.grab();
+//                grabber.getFormat();
 
                 img = converter.convert(frame);
 
