@@ -36,9 +36,11 @@ public class WebcamQRCodeExample extends JFrame implements Runnable, ThreadFacto
 		setTitle("Read QR / Bar Code With Webcam");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		Dimension size = WebcamResolution.QVGA.getSize();
+		Dimension size = WebcamResolution.UXGA.getSize();
+//                Dimension size2 = new Dimension(640,480);
 
 		webcam = Webcam.getWebcams().get(0);
+                webcam.setCustomViewSizes(new Dimension[] { size });
 		webcam.setViewSize(size);
 
 		panel = new WebcamPanel(webcam);
@@ -87,6 +89,7 @@ public class WebcamQRCodeExample extends JFrame implements Runnable, ThreadFacto
 			}
 
 			if (result != null) {
+                            System.out.println(result.getText());
 				textarea.setText(result.getText());
 			}
 
