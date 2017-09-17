@@ -22,5 +22,21 @@
       <artifactId>webcam-capture</artifactId>
       <version>0.3.10</version>
     </dependency>
+    <dependency>
+      <groupId>com.jhlabs</groupId>
+      <artifactId>filters</artifactId>
+      <version>2.0.235-1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.pushingpixels</groupId>
+      <artifactId>flamengo</artifactId>
+      <version>5.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.insubstantial</groupId>
+      <artifactId>substance</artifactId>
+      <version>7.3</version>
+      <classifier>lite</classifier>
+    </dependency>
   </dependencies>
 </project>

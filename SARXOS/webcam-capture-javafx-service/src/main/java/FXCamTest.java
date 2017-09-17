@@ -1,5 +1,6 @@
-import com.github.sarxos.webcam.Webcam;
+package main.java;
 
+import com.github.sarxos.webcam.Webcam;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
@@ -18,7 +19,7 @@ public class FXCamTest extends Application {
 		
 		// note this is in init as it **must not** be called on the FX Application Thread:
 
-		Webcam cam = Webcam.getWebcams().get(0);
+		 Webcam cam = Webcam.getWebcams().get(0);
 		service = new WebCamService(cam);	
 	}
 

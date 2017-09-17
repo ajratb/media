@@ -1,8 +1,11 @@
+package main.java;
+
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamResolution;
+import com.github.sarxos.webcam.util.jh.*;
 
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -14,7 +17,8 @@ public class WebCamService extends Service<Image> {
 	private final Webcam cam ;
 	
 	private final WebcamResolution resolution ;
-	
+        private static final JHGrayFilter GRAY = new JHGrayFilter();
+        
 	public WebCamService(Webcam cam, WebcamResolution resolution) {
 		this.cam = cam ;
 		this.resolution = resolution;
@@ -23,7 +27,7 @@ public class WebCamService extends Service<Image> {
 	}
 	
 	public WebCamService(Webcam cam) {
-		this(cam, WebcamResolution.QVGA);
+		this(cam, WebcamResolution.SVGA);
 	}
 	
 	@Override
@@ -37,6 +41,7 @@ public class WebCamService extends Service<Image> {
 					while (!isCancelled()) {
 						if (cam.isImageNew()) {
 							BufferedImage bimg = cam.getImage();
+                                                        GRAY.filter(bimg, bimg);
 							updateValue(SwingFXUtils.toFXImage(bimg, null));
 						}
 					}

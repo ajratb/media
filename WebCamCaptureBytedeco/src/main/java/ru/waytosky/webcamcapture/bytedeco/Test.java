@@ -5,9 +5,10 @@
  */
 package ru.waytosky.webcamcapture.bytedeco;
 
-import static org.bytedeco.javacpp.opencv_core.IplImage;
-import static org.bytedeco.javacpp.opencv_core.cvFlip;
+import static org.bytedeco.javacpp.opencv_core.*;
 import static org.bytedeco.javacpp.opencv_imgcodecs.cvSaveImage;
+import static org.bytedeco.javacpp.opencv_imgproc.*;
+
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
@@ -32,6 +33,7 @@ public class Test implements Runnable {
         FrameGrabber grabber = new VideoInputFrameGrabber(0); // 1 for next camera
         OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
         IplImage img;
+        IplImage grayImage;    
         int i = 0;
         try {
             grabber.start();
@@ -41,14 +43,14 @@ public class Test implements Runnable {
 //                grabber.getFormat();
 
                 img = converter.convert(frame);
-
+                grayImage= IplImage.create(img.width(),img.height(), IPL_DEPTH_8U, 1);
                 //the grabbed frame will be flipped, re-flip to make it right
                 cvFlip(img, img, 1);// l-r = 90_degrees_steps_anti_clockwise
-
+                cvCvtColor(img, grayImage, CV_BGR2GRAY);
                 //save
-                cvSaveImage((i++) + "-aa.jpg", img);
+                cvSaveImage((i++) + "-aa.jpg", grayImage);
 
-                canvas.showImage(converter.convert(img));
+                canvas.showImage(converter.convert(grayImage));
 
                 Thread.sleep(INTERVAL);
             }
