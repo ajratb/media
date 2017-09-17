@@ -1,4 +1,4 @@
-package main.java;
+package ru.waytosky.sarxos;
 
 import com.github.sarxos.webcam.Webcam;
 import javafx.application.Application;

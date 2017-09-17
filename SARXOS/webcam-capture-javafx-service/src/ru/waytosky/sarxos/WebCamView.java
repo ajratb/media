@@ -1,4 +1,4 @@
-package main.java;
+package ru.waytosky.sarxos;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;

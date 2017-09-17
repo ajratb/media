@@ -1,4 +1,4 @@
-package main.java;
+package ru.waytosky.sarxos;
 
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;

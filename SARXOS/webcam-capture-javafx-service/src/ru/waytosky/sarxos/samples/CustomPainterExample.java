@@ -1,4 +1,4 @@
-package main.java;
+package ru.waytosky.sarxos.samples;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
