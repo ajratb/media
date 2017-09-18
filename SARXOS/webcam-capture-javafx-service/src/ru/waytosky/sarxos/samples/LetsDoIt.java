@@ -19,12 +19,14 @@ import javax.imageio.ImageIO;
 public class LetsDoIt {
 
     public static void main(String[] args) {
+        Dimension d = new Dimension(4416,3312);
         Webcam webcam = Webcam.getWebcams().get(0);
 //        webcam.setCustomViewSizes(new Dimension[]{
 //            WebcamResolution.CIF.getSize(),
 //            WebcamResolution.HVGA.getSize(), // etc
 //        });
-//        webcam.setViewSize(WebcamResolution.HVGA.getSize());
+        webcam.setCustomViewSizes(new Dimension[]{d});
+        webcam.setViewSize(d);
 //        System.out.println(webcam.getName());
         webcam.open();
 
