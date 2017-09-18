@@ -39,4 +39,5 @@
       <classifier>lite</classifier>
     </dependency>
   </dependencies>
+    <name>Webcam Capture - JavaFx Service</name>
 </project>

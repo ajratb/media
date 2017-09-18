@@ -2,6 +2,8 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.atomic.AtomicReference;
 
 import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamResolution;
+import java.awt.Dimension;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -178,7 +180,9 @@ public class WebCamAppLauncher extends Application {
 				}
 
 				webCam = Webcam.getWebcams().get(webCamIndex);
-				webCam.open();
+                                webCam.setCustomViewSizes(new Dimension[] {WebcamResolution.VGA.getSize()});
+				webCam.setViewSize(WebcamResolution.VGA.getSize());
+                                webCam.open();
 
 				startWebCamStream();
 
