@@ -31,6 +31,10 @@ public class Test implements Runnable {
     public void run() {
 
         FrameGrabber grabber = new VideoInputFrameGrabber(0); // 1 for next camera
+        grabber.setImageHeight(1920);
+        grabber.setImageWidth(1080);
+//        grabber.setImageHeight(3312);
+//        grabber.setImageWidth(4416);
         OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
         IplImage img;
         IplImage grayImage;    
@@ -45,7 +49,7 @@ public class Test implements Runnable {
                 img = converter.convert(frame);
                 grayImage= IplImage.create(img.width(),img.height(), IPL_DEPTH_8U, 1);
                 //the grabbed frame will be flipped, re-flip to make it right
-                cvFlip(img, img, 1);// l-r = 90_degrees_steps_anti_clockwise
+//                cvFlip(img, img, 1);// l-r = 90_degrees_steps_anti_clockwise
                 cvCvtColor(img, grayImage, CV_BGR2GRAY);
                 //save
 //                cvSaveImage((i++) + "-aa.jpg", grayImage);

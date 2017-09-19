@@ -22,6 +22,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 
 import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamResolution;
+import com.github.sarxos.webcam.util.jh.JHGrayFilter;
+import java.awt.Dimension;
 
 
 /**
@@ -80,6 +83,9 @@ public class WebCamPreviewController implements Initializable {
 	}
 
 	private BufferedImage grabbedImage;
+        private final static  JHGrayFilter filter=new JHGrayFilter();
+        Dimension dim=new Dimension(2208, 1656);
+        WebcamResolution resolution = WebcamResolution.XGA;
 	private Webcam selWebCam = null;
 	private boolean stopCamera = false;
 	private ObjectProperty<Image> imageProperty = new SimpleObjectProperty<Image>();
@@ -142,6 +148,8 @@ public class WebCamPreviewController implements Initializable {
 
 				if (selWebCam == null) {
 					selWebCam = Webcam.getWebcams().get(webCamIndex);
+//                                        selWebCam.setCustomViewSizes(new Dimension[]{dim});
+//                                        selWebCam.setViewSize(dim);
 					selWebCam.open();
 				} else {
 					closeCamera();
@@ -175,6 +183,7 @@ public class WebCamPreviewController implements Initializable {
 
 								@Override
 								public void run() {
+                                                                    filter.filter(grabbedImage, grabbedImage);
 									final Image mainiamge = SwingFXUtils
 										.toFXImage(grabbedImage, null);
 									imageProperty.set(mainiamge);

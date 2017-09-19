@@ -16,18 +16,20 @@ public class WebCamService extends Service<Image> {
 
 	private final Webcam cam ;
 	
-	private final WebcamResolution resolution ;
+//	private final WebcamResolution resolution ;
+        private final Dimension dims;
         private static final JHGrayFilter GRAY = new JHGrayFilter();
         
-	public WebCamService(Webcam cam, WebcamResolution resolution) {
+	public WebCamService(Webcam cam, Dimension dimens) {
 		this.cam = cam ;
-		this.resolution = resolution;
-		cam.setCustomViewSizes(new Dimension[] {resolution.getSize()});
-		cam.setViewSize(resolution.getSize());
+		this.dims = dimens;
+		cam.setCustomViewSizes(new Dimension[] {dims});
+		cam.setViewSize(dims);
 	}
 	
 	public WebCamService(Webcam cam) {
-		this(cam, WebcamResolution.SVGA);
+//		this(cam, WebcamResolution.SVGA);
+                this(cam, new Dimension(640, 480));
 	}
 	
 	@Override
@@ -59,11 +61,11 @@ public class WebCamService extends Service<Image> {
 	
 
 	public int getCamWidth() {
-		return resolution.getSize().width ;
+		return dims.width ;
 	}
 	
 	public int getCamHeight() {
-		return resolution.getSize().height ;
+		return dims.height ;
 	}
 		
 }
