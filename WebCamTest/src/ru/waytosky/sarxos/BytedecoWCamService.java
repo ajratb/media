@@ -32,6 +32,7 @@ public class BytedecoWCamService extends Service<Image> {
     private final FrameGrabber grabber = new VideoInputFrameGrabber(0); // 1 for next camera
     private final OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
     private Java2DFrameConverter converter2D = new Java2DFrameConverter();
+
     public BytedecoWCamService(int width, int height) {
         //установка размера
         grabber.setImageWidth(width);
@@ -55,12 +56,12 @@ public class BytedecoWCamService extends Service<Image> {
 //                        
 
                         //the grabbed frame will be flipped, re-flip to make it right
-                        cvFlip(img, img, 1);// l-r = 90_degrees_steps_anti_clockwise
+//                        cvFlip(img, img, 1);// l-r = 90_degrees_steps_anti_clockwise
 //                        cvCvtColor(img, grayImage, CV_BGR2GRAY);
-                        
+
                         BufferedImage bimg = converter2D.convert(converter.convert(img));
                         updateValue(SwingFXUtils.toFXImage(bimg, null));
-                         Thread.sleep(INTERVAL);
+                        Thread.sleep(INTERVAL);
                     }
                     System.out.println("Cancelled, closing cam");
                     grabber.close();
@@ -74,13 +75,13 @@ public class BytedecoWCamService extends Service<Image> {
         };
 
     }
-    
+
     public int getCamWidth() {
-		return grabber.getImageWidth();
-	}
-	
-	public int getCamHeight() {
-		return grabber.getImageHeight() ;
-	}
+        return grabber.getImageWidth();
+    }
+
+    public int getCamHeight() {
+        return grabber.getImageHeight();
+    }
 
 }
