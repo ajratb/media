@@ -38,7 +38,7 @@ public class Test implements Runnable {
         OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
         IplImage img;
         IplImage grayImage;    
-        int i = 0;
+//        int i = 0;
         try {
             grabber.start();
             while (true) {
@@ -52,7 +52,7 @@ public class Test implements Runnable {
 //                cvFlip(img, img, 1);// l-r = 90_degrees_steps_anti_clockwise
                 cvCvtColor(img, grayImage, CV_BGR2GRAY);
                 //save
-                cvSaveImage((i++) + "-aa.jpg", grayImage);
+//                cvSaveImage((i++) + "-aa.jpg", grayImage);
 
                 canvas.showImage(converter.convert(grayImage));
 
