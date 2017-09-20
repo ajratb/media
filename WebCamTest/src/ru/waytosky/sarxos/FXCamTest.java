@@ -20,7 +20,7 @@ public class FXCamTest extends Application {
 		// note this is in init as it **must not** be called on the FX Application Thread:
 
 //		 Webcam cam = Webcam.getWebcams().get(0);
-		service = new BytedecoWCamService(640, 480);
+		service = new BytedecoWCamService(4416,3312);
 	}
 
 	@Override

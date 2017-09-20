@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ru.waytosky.sarxos;
+package ru.waytosky.jfx;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -30,7 +30,7 @@ import javax.imageio.ImageIO;
  */
 public class BytedecoWCamService extends Service<Image> {
 
-    private final int INTERVAL = 1000;///you may use interval
+    private final int INTERVAL = 100;///you may use interval
     private final FrameGrabber grabber = new VideoInputFrameGrabber(0); // 1 for next camera
     private final OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
     private Java2DFrameConverter converter2D = new Java2DFrameConverter();
