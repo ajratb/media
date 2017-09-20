@@ -31,10 +31,11 @@ public class Test implements Runnable {
     public void run() {
 
         FrameGrabber grabber = new VideoInputFrameGrabber(0); // 1 for next camera
-        grabber.setImageHeight(1920);
-        grabber.setImageWidth(1080);
-//        grabber.setImageHeight(3312);
-//        grabber.setImageWidth(4416);
+        grabber.setImageHeight(2208);
+        grabber.setImageWidth(3312);
+//        grabber.setImageHeight(1836);
+//        grabber.setImageWidth(2754);
+//        grabber.setFormat("YUY2");
         OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
         IplImage img;
         IplImage grayImage;    

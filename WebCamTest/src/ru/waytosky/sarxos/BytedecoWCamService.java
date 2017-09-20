@@ -33,7 +33,7 @@ public class BytedecoWCamService extends Service<Image> {
     private final OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
     private Java2DFrameConverter converter2D = new Java2DFrameConverter();
     public BytedecoWCamService(int width, int height) {
-        //установка размера
+        //
         grabber.setImageWidth(width);
         grabber.setImageHeight(height);
     }
@@ -51,14 +51,14 @@ public class BytedecoWCamService extends Service<Image> {
                         Frame frame = grabber.grab();
 
                         img = converter.convert(frame);
-//                        grayImage = opencv_core.IplImage.create(img.width(), img.height(), IPL_DEPTH_8U, 1);
+                        grayImage = opencv_core.IplImage.create(img.width(), img.height(), IPL_DEPTH_8U, 1);
 //                        
 
                         //the grabbed frame will be flipped, re-flip to make it right
-                        cvFlip(img, img, 1);// l-r = 90_degrees_steps_anti_clockwise
-//                        cvCvtColor(img, grayImage, CV_BGR2GRAY);
+//                        cvFlip(img, img, 1);// l-r = 90_degrees_steps_anti_clockwise
+                        cvCvtColor(img, grayImage, CV_BGR2GRAY);
                         
-                        BufferedImage bimg = converter2D.convert(converter.convert(img));
+                        BufferedImage bimg = converter2D.convert(converter.convert(grayImage));
                         updateValue(SwingFXUtils.toFXImage(bimg, null));
                          Thread.sleep(INTERVAL);
                     }
