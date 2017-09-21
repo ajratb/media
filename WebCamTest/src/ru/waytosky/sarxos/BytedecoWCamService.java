@@ -12,9 +12,11 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import javax.imageio.ImageIO;
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_core.IplImage;
 import static org.bytedeco.javacpp.opencv_core.IPL_DEPTH_8U;
+import static org.bytedeco.javacpp.opencv_core.cvFlip;
 import static org.bytedeco.javacpp.opencv_imgproc.CV_BGR2GRAY;
 import static org.bytedeco.javacpp.opencv_imgproc.cvCvtColor;
 import org.bytedeco.javacv.Frame;
@@ -22,7 +24,7 @@ import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.Java2DFrameConverter;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.bytedeco.javacv.VideoInputFrameGrabber;
-import javax.imageio.ImageIO;
+import static org.bytedeco.javacpp.opencv_imgcodecs.cvSaveImage;
 
 /**
  *
@@ -30,7 +32,7 @@ import javax.imageio.ImageIO;
  */
 public class BytedecoWCamService extends Service<Image> {
 
-    private final int INTERVAL = 1000;///you may use interval
+    private final int INTERVAL = 500;///you may use interval
     private final FrameGrabber grabber = new VideoInputFrameGrabber(0); // 1 for next camera
     private final OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
     private Java2DFrameConverter converter2D = new Java2DFrameConverter();
@@ -48,27 +50,34 @@ public class BytedecoWCamService extends Service<Image> {
             protected Image call() throws Exception {
                 IplImage img;
                 IplImage grayImage;
+                int i = 0;
                 try {
                     grabber.start();
                     while (!isCancelled()) {
+                       
                         Frame frame = grabber.grab();
 
                         img = converter.convert(frame);
-                        grayImage = opencv_core.IplImage.create(img.width(), img.height(), IPL_DEPTH_8U, 1);
-//                        
 
+//                        
                         //the grabbed frame will be flipped, re-flip to make it right
 //                        cvFlip(img, img, 1);// l-r = 90_degrees_steps_anti_clockwise
+                        grayImage = opencv_core.IplImage.create(img.width(), img.height(), IPL_DEPTH_8U, 1);
                         cvCvtColor(img, grayImage, CV_BGR2GRAY);
-
-                        BufferedImage bimg = converter2D.convert(converter.convert(grayImage));
-//                      
-//                        File outputFile = new File("bimg.png");
+//                        BufferedImage bimg = converter2D.convert(converter.convert(grayImage));
+                        BufferedImage bimg = converter2D.getBufferedImage(frame, 1.0);
+//                          BufferedImage bimg = converter2D.convert(frame);
+//                        while (i< 5) {
+//                            cvSaveImage((i++) + "-aa.jpg", img);
 //
-//                        try {
-//                            ImageIO.write(bimg, "png", outputFile);
-//                        } catch (IOException e) {
-//                            throw new RuntimeException(e);
+////                      
+//                            File outputFile = new File("bimg.png");
+//
+//                            try {
+//                                ImageIO.write(bimg, "png", outputFile);
+//                            } catch (IOException e) {
+//                                throw new RuntimeException(e);
+//                            }
 //                        }
 
 //                        BufferedImage bimg = converter2D.convert(converter.convert(img));
