@@ -12,15 +12,16 @@ import javafx.stage.Stage;
 
 public class FXCamTest extends Application {
 	
-	private BytedecoWCamService service ;
+	private WebCamService service ;
 	
 	@Override
 	public void init() {
 		
 		// note this is in init as it **must not** be called on the FX Application Thread:
 
-//		 Webcam cam = Webcam.getWebcams().get(0);
-		service = new BytedecoWCamService(4416,3312);
+		 Webcam cam = Webcam.getWebcams().get(0);
+//		service = new BytedecoWCamService(4416,3312);
+                service=new WebCamService(cam);
 	}
 
 	@Override

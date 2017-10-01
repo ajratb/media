@@ -8,13 +8,13 @@ import javafx.scene.layout.Region;
 public class WebCamView {
 
 	private final ImageView imageView ;
-	private final BytedecoWCamService service ;
+	private final WebCamService service ;
 	private final Region view ;
 	
 	private final Label statusPlaceholder ;
 	
 	
-	public WebCamView(BytedecoWCamService service) {
+	public WebCamView(WebCamService service) {
 		this.service = service ;
 		this.imageView = new ImageView();
 		imageView.setPreserveRatio(true);
@@ -90,7 +90,7 @@ public class WebCamView {
 		};
 	}
 	
-	public BytedecoWCamService getService() {
+	public WebCamService getService() {
 		return service ;
 	}
 	
