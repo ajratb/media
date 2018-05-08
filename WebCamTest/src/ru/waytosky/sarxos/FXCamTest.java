@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 public class FXCamTest extends Application {
 	
-	private BytedecoWCamService service ;
+	private WebCamService service ;
 	
 	@Override
 	public void init() {

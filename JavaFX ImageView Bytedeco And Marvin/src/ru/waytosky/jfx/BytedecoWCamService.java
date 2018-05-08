@@ -31,16 +31,20 @@ import javax.imageio.ImageIO;
 public class BytedecoWCamService extends Service<Image> {
 
     private final int INTERVAL = 100;///you may use interval
-    private final FrameGrabber grabber = new VideoInputFrameGrabber(0); // 1 for next camera
+    private final  FrameGrabber grabber ; // 1 for next camera
     private final OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
     private Java2DFrameConverter converter2D = new Java2DFrameConverter();
 
-    public BytedecoWCamService(int width, int height) {
-        //
+    public BytedecoWCamService(int width, int height, int device) {
+        grabber= new VideoInputFrameGrabber(device);
         grabber.setImageWidth(width);
         grabber.setImageHeight(height);
     }
 
+//    public void forceStop() throws FrameGrabber.Exception{
+//        grabber.stop();
+//        grabber.close();
+//    }
     @Override
     protected Task<Image> createTask() {
         return new Task<Image>() {
@@ -48,11 +52,19 @@ public class BytedecoWCamService extends Service<Image> {
             protected Image call() throws Exception {
                 IplImage img;
                 IplImage grayImage;
+
                 try {
-                    grabber.start();
+                    System.out.println("before grabber start");
+                    try {
+                        grabber.start();
+                    } catch (FrameGrabber.Exception e) {
+                        grabber.restart();
+//                    grabber.start();
+                    }
+
+                    System.out.println("grabber started");
                     while (!isCancelled()) {
                         Frame frame = grabber.grab();
-
                         img = converter.convert(frame);
                         grayImage = opencv_core.IplImage.create(img.width(), img.height(), IPL_DEPTH_8U, 1);
 //                        
@@ -72,14 +84,17 @@ public class BytedecoWCamService extends Service<Image> {
 //                        }
 
 //                        BufferedImage bimg = converter2D.convert(converter.convert(img));
+//System.out.println("before value update");                        
                         updateValue(SwingFXUtils.toFXImage(bimg, null));
-                        Thread.sleep(INTERVAL);
+//                        Thread.sleep(INTERVAL);
                     }
                     System.out.println("Cancelled, closing cam");
-                    grabber.close();
+                    grabber.stop();
+
                     System.out.println("Cam closed");
                     return getValue();
                 } finally {
+//                    grabber.stop();
                     grabber.close();
                 }
             }

@@ -89,5 +89,6 @@ private Java2DFrameConverter converter2D = new Java2DFrameConverter();
         Test gs = new Test();
         Thread th = new Thread(gs);
         th.start();
+        
     }
 }
