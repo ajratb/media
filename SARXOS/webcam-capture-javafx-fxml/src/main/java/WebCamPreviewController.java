@@ -23,6 +23,7 @@ import javafx.scene.layout.FlowPane;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamResolution;
+import com.github.sarxos.webcam.ds.javacv.JavaCvDriver;
 import com.github.sarxos.webcam.util.jh.JHGrayFilter;
 import java.awt.Dimension;
 
@@ -33,6 +34,10 @@ import java.awt.Dimension;
  * @author Rakesh Bhatt (rakeshbhatt10)
  */
 public class WebCamPreviewController implements Initializable {
+    
+    static {
+        Webcam.setDriver(new JavaCvDriver());
+    }
 
 	@FXML
 	Button btnStartCamera;

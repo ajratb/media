@@ -2,6 +2,7 @@ package ru.waytosky.sarxos.samples;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.ds.javacv.JavaCvDriver;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -222,8 +223,9 @@ public class CustomPainterExample extends JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        
         webcam = Webcam.getDefault();
+        Webcam.setDriver(new JavaCvDriver());
         webcam.setViewSize(webcam.getViewSizes()[2]);
 
         Dimension size = webcam.getViewSizes()[0];
